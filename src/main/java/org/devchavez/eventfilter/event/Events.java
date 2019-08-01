@@ -1,7 +1,5 @@
 package org.devchavez.eventfilter.event;
 
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -60,28 +58,12 @@ public class Events {
 	}
 	
 	/**
-	 * This prints a summary of Events counts by Service Guid into the outputStream
+	 * This computes a summary of counts by Service Guids from given list of Events
 	 */
-	public void printEvents(List<Event> events, OutputStream outputStream, boolean doCloseStream) {
-		Map<UUID, Long> eventSummary = events.stream()
+	public Map<UUID, Long> getServiceSummary(List<Event> events) {
+		Map<UUID, Long> serviceSummary = events.stream()
 				.collect(Collectors.groupingBy(Event::getServiceGuid, Collectors.counting()));
 		
-		PrintWriter writer = new PrintWriter(outputStream);
-		
-		writer.println("Event Summary");
-		writer.println("Service Guid, Total Records");
-		
-		eventSummary.forEach((x, y) -> {
-			writer.println(x + ", " + y);
-		});
-		
-		writer.println("End of Event Summary");
-		
-		writer.flush();
-		
-		// We don't close Stdout like streams
-		if (doCloseStream) {
-			writer.close();
-		}
+		return serviceSummary;
 	}
 }

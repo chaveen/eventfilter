@@ -1,8 +1,11 @@
 package org.devchavez.eventfilter;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.devchavez.eventfilter.event.Events;
@@ -55,7 +58,27 @@ public class Application implements CommandLineRunner {
 		EventTarget evenetTarget = new EventTarget(new File(outputFile));
 		this.events.writeEvents(events, evenetTarget);
 		
-		this.events.printEvents(events, System.out, false);
+		this.printServiceSummary(events);
+	}
+	
+	/**
+	 * This prints a summary of Events counts by Service Guid into the StdOut
+	 */
+	public void printServiceSummary(List<Event> events) {
+		Map<UUID, Long> serviceSummary = this.events.getServiceSummary(events);
+		
+		PrintWriter writer = new PrintWriter(System.out);
+		
+		writer.println("Event Summary");
+		writer.println("Service Guid, Total Records");
+		
+		serviceSummary.forEach((x, y) -> {
+			writer.println(x + ", " + y);
+		});
+		
+		writer.println("End of Event Summary");
+		
+		writer.flush();
 	}
 
 	public static void main(String[] args) {

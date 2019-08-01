@@ -1,5 +1,6 @@
 package org.devchavez.eventfilter.event.vo;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class Event {
 	private String clientAddress;
 	
 	@JsonProperty("request-time")
-	private Date requestTime;
+	private ZonedDateTime requestTime;
 	
 	@JsonProperty("service-guid")
 	private UUID serviceGuid;
@@ -71,10 +72,10 @@ public class Event {
 	public void setClientAddress(String clientAddress) {
 		this.clientAddress = clientAddress;
 	}
-	public Date getRequestTime() {
+	public ZonedDateTime getRequestTime() {
 		return requestTime;
 	}
-	public void setRequestTime(Date requestTime) {
+	public void setRequestTime(ZonedDateTime requestTime) {
 		this.requestTime = requestTime;
 	}
 	public UUID getServiceGuid() {
