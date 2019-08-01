@@ -1,7 +1,6 @@
 # Event Processing Application
 
-This is application can process Events from various sources in various formats and aggregate them into targets in various target format.
-
+This application and the framework supporting it can process **Event data from various sources in various formats and aggregate them into targets in various target format**.
 
 
 ## What is an Event
